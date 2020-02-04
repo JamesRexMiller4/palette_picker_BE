@@ -1,17 +1,3 @@
-const users = [
-  {username: 'Jarvis Blargus', password: 'password123'},
-  {username: 'Chuck Norris', password: 'password123'},
-  {username: 'Oprah Winfrey', password: 'password123'},
-  {username: 'Banksy', password: 'password123'},
-  {username: 'Leonardo Davinci', password: 'password123'},
-  {username: 'Michelangelo', password: 'password123'},
-  {username: 'Vincent Van Gogh', password: 'password123'},
-  {username: 'Salvidor Dali', password: 'password123'},
-  {username: 'David Bowie', password: 'password123'},
-  {username: 'Scott Ertmer', password: 'password123'},
-]
-
-
 const data = [
   {username: 'Jarvis Blargus', password: 'password123', folders: [
     {folderName: 'Project #1', palettes: [
@@ -65,3 +51,5 @@ const data = [
     ]}]
   }
 ]
+
+module.exports = data;
