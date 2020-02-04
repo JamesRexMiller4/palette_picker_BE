@@ -13,34 +13,55 @@ const users = [
 
 
 const data = [
-  {folderName: 'Project #1', paletteName: 'Palette #1', colors: ['#80adaa', '#d9c9fb', '#9c5f3d', '#4ba9b3', '#a6617c']},
-  {folderName: 'Project #2', paletteName: 'Palette #2', colors: ['#80e56a', '#51c5c5', '#51ed3d', '#7f6851', '#826fb0']},
-  {folderName: 'Project #3', paletteName: 'Palette #3', colors: ['#6ce8c8', '#b8a7d1', '#258fd5', '#ceb025', '#b09d5e']},
-  {folderName: 'Project #4', paletteName: 'Palette #4', colors: ['#47e18d', '#75880e', '#3560fe', '#989a53', '#5e5ed4']},
-  {folderName: 'Project #5', paletteName: 'Palette #5', colors: ['#0441af', '#f5933e', '#0318e1', '#576f1d', '#0d3c03']},
-  {folderName: 'Project #6', paletteName: 'Palette #6', colors: ['#c90629', '#30d60f', '#a18dc1', '#8ea780', '#43c877']},
-  {folderName: 'Project #7', paletteName: 'Palette #7', colors: ['#c0d1ea', '#933016', '#35d018', '#f87f3f', '#b9481e']},
-  {folderName: 'Project #8', paletteName: 'Palette #8', colors: ['#3b29f5', '#ce73e5', '#df70b6', '#e39cbf', '#f6b26d']},
-  {folderName: 'Project #9', paletteName: 'Palette #9', colors: ['#db88e5', '#f09231', '#e1c902', '#9b8603', '#160c54']},
-  {folderName: 'Project #10', paletteName: 'Palette #10', colors: ['#80adaa', '#d9c9fb', '#9c5f3d', '#4ba9b3', '#a6617c']},
-  {folderName: 'Project #11', paletteName: 'Palette #11', colors: ['#80e56a', '#51c5c5', '#51ed3d', '#7f6851', '#826fb0']},
-  {folderName: 'Project #12', paletteName: 'Palette #12', colors: ['#6ce8c8', '#b8a7d1', '#258fd5', '#ceb025', '#b09d5e']},
-  {folderName: 'Project #13', paletteName: 'Palette #13', colors: ['#47e18d', '#75880e', '#3560fe', '#989a53', '#5e5ed4']},
-  {folderName: 'Project #14', paletteName: 'Palette #14', colors: ['#0441af', '#f5933e', '#0318e1', '#576f1d', '#0d3c03']},
-  {folderName: 'Project #15', paletteName: 'Palette #15', colors: ['#c90629', '#30d60f', '#a18dc1', '#8ea780', '#43c877']},
-  {folderName: 'Project #16', paletteName: 'Palette #16', colors: ['#c0d1ea', '#933016', '#35d018', '#f87f3f', '#b9481e']},
-  {folderName: 'Project #17', paletteName: 'Palette #17', colors: ['#3b29f5', '#ce73e5', '#df70b6', '#e39cbf', '#f6b26d']},
-  {folderName: 'Project #18', paletteName: 'Palette #18', colors: ['#db88e5', '#f09231', '#e1c902', '#9b8603', '#160c54']},
-  {folderName: 'Project #19', paletteName: 'Palette #19', colors: ['#80adaa', '#d9c9fb', '#9c5f3d', '#4ba9b3', '#a6617c']},
-  {folderName: 'Project #20', paletteName: 'Palette #20', colors: ['#80e56a', '#51c5c5', '#51ed3d', '#7f6851', '#826fb0']},
-  {folderName: 'Project #21', paletteName: 'Palette #21', colors: ['#6ce8c8', '#b8a7d1', '#258fd5', '#ceb025', '#b09d5e']},
-  {folderName: 'Project #22', paletteName: 'Palette #22', colors: ['#47e18d', '#75880e', '#3560fe', '#989a53', '#5e5ed4']},
-  {folderName: 'Project #23', paletteName: 'Palette #23', colors: ['#0441af', '#f5933e', '#0318e1', '#576f1d', '#0d3c03']},
-  {folderName: 'Project #24', paletteName: 'Palette #24', colors: ['#c90629', '#30d60f', '#a18dc1', '#8ea780', '#43c877']},
-  {folderName: 'Project #25', paletteName: 'Palette #25', colors: ['#c0d1ea', '#933016', '#35d018', '#f87f3f', '#b9481e']},
-  {folderName: 'Project #26', paletteName: 'Palette #26', colors: ['#3b29f5', '#ce73e5', '#df70b6', '#e39cbf', '#f6b26d']},
-  {folderName: 'Project #27', paletteName: 'Palette #27', colors: ['#db88e5', '#f09231', '#e1c902', '#9b8603', '#160c54']},
-  {folderName: 'Project #28', paletteName: 'Palette #28', colors: ['#80adaa', '#d9c9fb', '#9c5f3d', '#4ba9b3', '#a6617c']},
-  {folderName: 'Project #29', paletteName: 'Palette #29', colors: ['#80e56a', '#51c5c5', '#51ed3d', '#7f6851', '#826fb0']},
-  {folderName: 'Project #30', paletteName: 'Palette #30', colors: ['#80e56a', '#51c5c5', '#51ed3d', '#7f6851', '#826fb0']}
+  {username: 'Jarvis Blargus', password: 'password123', folders: [
+    {folderName: 'Project #1', palettes: [
+      {paletteName: 'Palette #1', colors: ['#80adaa', '#d9c9fb', '#9c5f3d', '#4ba9b3', '#a6617c']},
+      {paletteName: 'Palette #2', colors: ['#80e56a', '#51c5c5', '#51ed3d', '#7f6851', '#826fb0']},
+      {paletteName: 'Palette #3', colors: ['#80e56a', '#51c5c5', '#51ed3d', '#7f6851', '#826fb0']}
+    ]},
+    {folderName: 'Project #2', palettes: [
+      {paletteName: 'Palette #1', colors: ['#80e56a', '#51c5c5', '#51ed3d', '#7f6851', '#826fb0']},
+      {paletteName: 'Palette #2', colors: ['#80adaa', '#d9c9fb', '#9c5f3d', '#4ba9b3', '#a6617c']}, 
+      {paletteName: 'Palette #3', colors: ['#db88e5', '#f09231', '#e1c902', '#9b8603', '#160c54']},
+    ]},
+    {folderName: 'Project #3', palettes: [
+      {paletteName: 'Palette #1', colors: ['#6ce8c8', '#b8a7d1', '#258fd5', '#ceb025', '#b09d5e']},
+      {paletteName: 'Palette #2', colors: ['#47e18d', '#75880e', '#3560fe', '#989a53', '#5e5ed4']},
+      {paletteName: 'Palette #3', colors: ['#0441af', '#f5933e', '#0318e1', '#576f1d', '#0d3c03']},
+    ]}]
+  },
+  {username: 'Banksy', password: 'password123', folders: [
+    {folderName: 'Project #1', palettes: [ 
+      {paletteName: 'Palette #1', colors: ['#c90629', '#30d60f', '#a18dc1', '#8ea780', '#43c877']},
+      {paletteName: 'Palette #2', colors: ['#c0d1ea', '#933016', '#35d018', '#f87f3f', '#b9481e']},
+      {paletteName: 'Palette #3', colors: ['#3b29f5', '#ce73e5', '#df70b6', '#e39cbf', '#f6b26d']},
+    ]},
+    {folderName: 'Project #2', palettes: [
+      {paletteName: 'Palette #1', colors: ['#3b29f5', '#ce73e5', '#df70b6', '#e39cbf', '#f6b26d']},
+      {paletteName: 'Palette #2', colors: ['#db88e5', '#f09231', '#e1c902', '#9b8603', '#160c54']},
+      {paletteName: 'Palette #3', colors: ['#80adaa', '#d9c9fb', '#9c5f3d', '#4ba9b3', '#a6617c']},
+    ]},
+    {folderName: 'Project #3', palettes: [
+      {paletteName: 'Palette #1', colors: ['#80e56a', '#51c5c5', '#51ed3d', '#7f6851', '#826fb0']},
+      {paletteName: 'Palette #2', colors: ['#47e18d', '#75880e', '#3560fe', '#989a53', '#5e5ed4']},
+      {paletteName: 'Palette #3', colors: ['#6ce8c8', '#b8a7d1', '#258fd5', '#ceb025', '#b09d5e']},
+    ]}]
+  },
+  {username: 'Scott Ertmer', password: 'password123', folders: [
+    {folderName: 'Project #1', palettes: [
+      {paletteName: 'Palette #1', colors: ['#0441af', '#f5933e', '#0318e1', '#576f1d', '#0d3c03']},
+      {paletteName: 'Palette #2', colors: ['#c90629', '#30d60f', '#a18dc1', '#8ea780', '#43c877']},
+      {paletteName: 'Palette #3', colors: ['#c0d1ea', '#933016', '#35d018', '#f87f3f', '#b9481e']},
+    ]},
+    {folderName: 'Project #2', palettes: [
+      {paletteName: 'Palette #1', colors: ['#3b29f5', '#ce73e5', '#df70b6', '#e39cbf', '#f6b26d']},
+      {paletteName: 'Palette #2', colors: ['#db88e5', '#f09231', '#e1c902', '#9b8603', '#160c54']},
+      {paletteName: 'Palette #3', colors: ['#80adaa', '#d9c9fb', '#9c5f3d', '#4ba9b3', '#a6617c']},
+    ]},
+    {folderName: 'Project #3', palettes: [
+      {paletteName: 'Palette #1', colors: ['#80e56a', '#51c5c5', '#51ed3d', '#7f6851', '#826fb0']},
+      {paletteName: 'Palette #1', colors: ['#6ce8c8', '#b8a7d1', '#258fd5', '#ceb025', '#b09d5e']},
+      {paletteName: 'Palette #1', colors: ['#47e18d', '#75880e', '#3560fe', '#989a53', '#5e5ed4']},
+    ]}]
+  }
 ]
