@@ -11,7 +11,7 @@ exports.up = knex => {
       table.string('folder_name');
       table.integer('user_id').unsigned()  
       table.foreign('user_id')
-        .references('user.id');
+        .references('users.id');
     })
     .createTable('palettes', table => {
       table.increments('id').primary();
@@ -22,7 +22,7 @@ exports.up = knex => {
       table.string('color_four');
       table.string('color_five');
       table.integer('folder_id')
-        .references('folder.id')
+        .references('folders.id')
     })
 }
 
