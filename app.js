@@ -14,11 +14,11 @@ app.get('/', (request, response) => {
   response.send('Welcome to the Palette Picker API');
 });
 
-app.get('/api/v1/users/:id/folders/:id', async (req, res) => {
-  const { id } = req.params
+app.get('/api/v1/users/:id/folders/:folderId', async (req, res) => {
+  const { folderId } = req.params
   try {
-    const folder = await database('folders').select().where("id", id);
-    folder.length > 0 ? res.status(200).json(folder) : res.status(404).json({error: 'Folder not found'});
+    const folder = await database('folders').select().where("id", folderId);
+    folder.length > 0 ? res.status(200).json(folder[0]) : res.status(404).json({error: 'Folder not found'});
   } catch(error) {
     res.status(500).send({ error });
   }

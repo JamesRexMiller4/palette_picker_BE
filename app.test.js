@@ -26,7 +26,7 @@ describe('App', () => {
       const result = res.body[0];
 
       expect(res.status).toBe(200);
-      expect(result).toEqual(expectedFolder);
+      expect(result).toEqual(expectedFolder[0]);
     });
     it('should return a 404 status code and error message', async () => {
       const sadID = -42;
