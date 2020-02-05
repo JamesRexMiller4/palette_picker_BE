@@ -57,4 +57,29 @@ describe('App', () => {
       expect(res.body.error).toEqual('Palette not found');
     })
   })
+
+  describe('GET /api/v1/users/:id/folders/:id/palettes', () => {
+    it('should return a 200 status code and all the palettes for a folder', async () => {
+      const user = await database('users').first();
+      const userId = user.id;
+     
+      const expectedFolder = await database('folders')
+        .where('user_id', userId)
+        .select();
+      
+      const folderId = expectedFolder[0].id;
+      
+      const expectedPalettes = await database('palettes')
+        .where('folder_id', folderId)
+        .select();
+      
+      const response = await request(app)
+        .get(`/api/v1/users/${userId}/folders/${folderId}/palettes`);
+
+      const palettes = response.body;
+      
+      expect(response.status).toBe(200);
+      expect(palettes).toEqual(expectedPalettes)
+    })
+  })
 })
