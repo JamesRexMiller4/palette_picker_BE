@@ -17,22 +17,19 @@ describe('App', () => {
       expect(res.status).toBe(200)
     });
   })
-  describe('GET /api/v1/users/:id/folders', async () => {
-    it('should return a 200 status and all folders', async () => {
-      const user = await database('users').first();
-      const { id } = user
 
+  describe('GET /api/v1/folders', async () => {
+    it('should return a 200 status and all folders', async () => {
       const expectedFolders = await database('folders')
-        .where('user_id', id)
         .select();
 
       const response = await request(app)
-        .get(`/api/v1/users/${id}/folders`);
+        .get(`/api/v1/folders`);
 
-      const folders = response.body
+      const folders = response.body;
 
       expect(response.status).toBe(200);
-      expect(folders).toEqual(expectedFolders)
+      expect(folders).toEqual(expectedFolders);
     });
 
     it('should return a 404 status if it can not find matching folders', async ()=> {
@@ -42,7 +39,7 @@ describe('App', () => {
         .get(`/api/v1/users/${invalidId}/folders`);
 
       expect(response.status).toBe(404);
-      expect(response.body.error).toEqual(`No folders found for user ${invalidId}`)
+      expect(response.body.error).toEqual('No folders found.')
     });
   });
   describe('GET "/api/v1/users/:id/folders/:folderId"', () => {
