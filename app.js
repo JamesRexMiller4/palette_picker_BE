@@ -19,9 +19,15 @@ app.get('/api/v1/users/:id/folders', async (request, response) => {
 
   try {
     const folders = await database('folders')
-      .where('id', id)
+      .where('user_id', id)
       .select();
-    response.status(200).json(folders)
+
+    if (!folders.length) {
+      return response.status(404)
+        .json({error: `No folders found for user ${id}`})
+    } else {
+      response.status(200).json(folders)
+    }
   } catch(error) {
     response.status(500).json({error})
   }
