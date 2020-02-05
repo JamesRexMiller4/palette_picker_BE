@@ -27,6 +27,14 @@ describe('App', () => {
 
       expect(res.status).toBe(200);
       expect(result).toEqual(expectedFolder);
-    })
+    });
+    it('should return a 404 status code and error message', async () => {
+      const sadID = -42;
+
+      const res = await request(app).get(`/api/v1/users/1/folders/${sadID}`);
+      console.log(res.status)
+      expect(res.status).toBe(404);
+      expect(res.body.error).toEqual('Folder not found')
+    });
   });
 })

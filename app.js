@@ -18,7 +18,7 @@ app.get('/api/v1/users/:id/folders/:id', async (req, res) => {
   const { id } = req.params
   try {
     const folder = await database('folders').select().where("id", id);
-    folder ? res.status(200).json(folder) : res.status(404).json({error: 'Folder not found'});
+    folder.length > 0 ? res.status(200).json(folder) : res.status(404).json({error: 'Folder not found'});
   } catch(error) {
     res.status(500).send({ error });
   }
