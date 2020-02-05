@@ -4,7 +4,7 @@ BackEnd Repo for Palette Picker
 
 # API ENDPOINTS - DOCUMENTATION
 
-| Api Paths             | Request       | Response                                         |
+| API Paths             | Request       | Response                                         |
 | --------------------  |:-------------:| ------------------------------------------------:|
 | '/api/v1/users/:id'   | **GET**           |   **pending**                                |
 | 'api/v1/users/:id/folders'| **GET**       |  **pending**                                 |
