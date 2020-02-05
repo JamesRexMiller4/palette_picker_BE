@@ -83,6 +83,45 @@ describe('App', () => {
 
       expect(res.status).toBe(404);
       expect(res.body.error).toEqual('Palette not found');
+    })
+  })
+
+  describe('GET /api/v1/users/:id/folders/:folderId/palettes', () => {
+    it('should return a 200 status code and all the palettes for a folder', async () => {
+      const user = await database('users').first();
+      const userId = user.id;
+     
+      const expectedFolders = await database('folders')
+        .where('user_id', userId)
+        .select();
+      
+      const folderId = expectedFolders[0].id;
+      
+      const expectedPalettes = await database('palettes')
+        .where('folder_id', folderId)
+        .select();
+      
+      const response = await request(app)
+        .get(`/api/v1/users/${userId}/folders/${folderId}/palettes`);
+
+      const palettes = response.body;
+      
+      expect(response.status).toBe(200);
+      expect(palettes).toEqual(expectedPalettes)
+  });
+
+  it('should return a 404 status and error if no matching palettes', async () => {
+    const user = await database('users').first();
+    const userId = user.id;
+
+    const invalidFolderId = -10;
+
+    const response = await request(app)
+      .get(`/api/v1/users/${userId}/folders/${invalidFolderId}/palettes`);
+    
+    expect(response.status).toBe(404);
+    expect(response.body.error).toEqual(`No palettes found for folder ${invalidFolderId}`)
     });
   });
 });
+
