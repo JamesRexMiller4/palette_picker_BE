@@ -15,7 +15,9 @@ app.get('/', (request, response) => {
 });
 
 app.get('/api/v1/users/:id/folders/:folderId', async (req, res) => {
-  const { folderId } = req.params
+
+  const { folderId } = req.params;
+
   try {
     const folder = await database('folders').select().where("id", folderId);
     folder.length > 0 ? res.status(200).json(folder[0]) : res.status(404).json({error: 'Folder not found'});
@@ -23,5 +25,16 @@ app.get('/api/v1/users/:id/folders/:folderId', async (req, res) => {
     res.status(500).send({ error });
   }
 });
+
+app.get('/api/v1/users/:id/folders/:folderId/palettes/:paletteId', async (req, res) => {
+  const { paletteId } = req.params;
+  try {
+    const palette = await database('palettes').select().where("id", paletteId);
+    palette.length > 0 ? res.status(200).json(palette[0]) : res.status(404).json({error: 'Palette not found'});
+  } catch(error) {
+    res.status(500).send({ error });
+  }
+})
+
 
 module.exports = app;

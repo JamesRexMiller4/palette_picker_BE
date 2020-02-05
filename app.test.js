@@ -32,9 +32,29 @@ describe('App', () => {
       const sadID = -42;
 
       const res = await request(app).get(`/api/v1/users/1/folders/${sadID}`);
-      console.log(res.status)
+
       expect(res.status).toBe(404);
-      expect(res.body.error).toEqual('Folder not found')
+      expect(res.body.error).toEqual('Folder not found');
     });
   });
+  describe('GET "api/v1/users/:id/folders/:folderId/palettes/:paletteId', () => {
+    it('should return a 200 status code and a single palette resource', async () => {
+      const expectedPalette = await database('palettes').first();
+      const { id } = expectedPalette;
+
+      const res = await request(app).get(`/api/v1/users/1/folders/1/palettes/${id}`);
+      const result = res.body[0];
+
+      expect(res.status).toBe(200);
+      expect(result).toEqual(expectedPalette[0]);
+    });
+    it('should return a 404 status code and error message', async () => {
+      const sadID = -42;
+
+      const res = await request(app).get(`/api/v1/users/1/folders/1/palettes/${sadID}`);
+
+      expect(res.status).toBe(404);
+      expect(res.body.error).toEqual('Palette not found');
+    })
+  })
 })
