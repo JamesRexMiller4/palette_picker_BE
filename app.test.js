@@ -58,7 +58,7 @@ describe('App', () => {
     })
   })
 
-  describe('GET /api/v1/users/:id/folders/:id/palettes', () => {
+  describe('GET /api/v1/users/:id/folders/:folderId/palettes', () => {
     it('should return a 200 status code and all the palettes for a folder', async () => {
       const user = await database('users').first();
       const userId = user.id;
@@ -93,6 +93,6 @@ describe('App', () => {
       .get(`/api/v1/users/${userId}/folders/${invalidFolderId}/palettes`);
     
     expect(response.status).toBe(404);
-    expect(response.body.error).toEqual('No matching palettes for that folder id')
+    expect(response.body.error).toEqual(`No palettes found for folder ${invalidFolderId}`)
   })
 })

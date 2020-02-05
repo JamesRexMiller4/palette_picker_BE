@@ -24,6 +24,24 @@ app.get('/api/v1/users/:id/folders/:folderId', async (req, res) => {
   }
 });
 
+app.get('/api/v1/users/:id/folders/:folderId/palettes', async (request, response) => {
+  const { folderId } = request.params;
+  try {
+    const palettes = await database('palettes')
+      .where('folder_id', folderId);
+    
+    if (!palettes.length) {
+      return response.status(404)
+        .json({error: `No palettes found for folder ${folderId}`})
+    } else {
+      response.status(200).json(palettes)
+    }
+    
+  } catch (error) {
+    response.status(500).json({error})
+  }
+})
+
 app.get('/api/v1/users/:id/folders/:folderId/palettes/:paletteId', async (req, res) => {
   const { paletteId } = req.params;
   try {
