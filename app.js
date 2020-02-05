@@ -10,31 +10,24 @@ app.locals.title = 'Palette Picker API';
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (request, response) => {
-  response.send('Welcome to the Palette Picker API');
-});
-
-app.get('/api/v1/users/:id/folders', async (request, response) => {
-  const { id } = request.params
-
+app.get('/api/v1/folders', async (req, res) => {
   try {
     const folders = await database('folders')
-      .where('user_id', id)
-      .select();
-
+    .select();
+    
     if (!folders.length) {
-      return response.status(404)
-        .json({error: `No folders found for user ${id}`})
+      return res.status(404)
+      .json({error: 'No folders found'})
     } else {
-      response.status(200).json(folders)
+      res.status(200).json(folders)
     }
   } catch(error) {
-    response.status(500).json({error})
+    res.status(500).json({error})
   }
-
+  
 })
 
-app.get('/api/v1/users/:id/folders/:folderId', async (req, res) => {
+app.get('/api/v1/folders/:folderId', async (req, res) => {
   const { folderId } = req.params;
   try {
     const folder = await database('folders').select().where("id", folderId);
@@ -44,21 +37,21 @@ app.get('/api/v1/users/:id/folders/:folderId', async (req, res) => {
   }
 });
 
-app.get('/api/v1/users/:id/folders/:folderId/palettes', async (request, response) => {
-  const { folderId } = request.params;
+app.get('/api/v1/folders/:folderId/palettes', async (req, res) => {
+  const { folderId } = req.params;
   try {
     const palettes = await database('palettes')
-      .where('folder_id', folderId);
+    .where('folder_id', folderId);
     
     if (!palettes.length) {
-      return response.status(404)
-        .json({error: `No palettes found for folder ${folderId}`})
+      return res.status(404)
+      .json({error: `No palettes found for folder ${folderId}`})
     } else {
-      response.status(200).json(palettes)
+      res.status(200).json(palettes)
     }
     
   } catch (error) {
-    response.status(500).json({error})
+    res.status(500).json({error})
   }
 })
 
@@ -71,5 +64,9 @@ app.get('/api/v1/users/:id/folders/:folderId/palettes/:paletteId', async (req, r
     res.status(500).send({ error });
   }
 })
+
+app.get('/', (req, res) => {
+  res.send('Welcome to the Palette Picker API');
+});
 
 module.exports = app;
