@@ -17,6 +17,34 @@ describe('App', () => {
       expect(res.status).toBe(200)
     });
   })
+  describe('GET /api/v1/users/:id/folders', async () => {
+    it('should return a 200 status and all folders', async () => {
+      const user = await database('users').first();
+      const { id } = user
+
+      const expectedFolders = await database('folders')
+        .where('user_id', id)
+        .select();
+
+      const response = await request(app)
+        .get(`/api/v1/users/${id}/folders`);
+
+      const folders = response.body
+
+      expect(response.status).toBe(200);
+      expect(folders).toEqual(expectedFolders)
+    });
+
+    it('should return a 404 status if it can not find matching folders', async ()=> {
+      const invalidId = -10;
+
+      const response = await request(app)
+        .get(`/api/v1/users/${invalidId}/folders`);
+
+      expect(response.status).toBe(404);
+      expect(response.body.error).toEqual(`No folders found for user ${invalidId}`)
+    });
+  });
   describe('GET "/api/v1/users/:id/folders/:folderId"', () => {
     it('should return a 200 status code and a single folder resource', async () => {
       const expectedFolder = await database('folders').first();
@@ -55,6 +83,6 @@ describe('App', () => {
 
       expect(res.status).toBe(404);
       expect(res.body.error).toEqual('Palette not found');
-    })
-  })
-})
+    });
+  });
+});
