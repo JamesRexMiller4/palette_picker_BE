@@ -63,11 +63,11 @@ describe('App', () => {
       const user = await database('users').first();
       const userId = user.id;
      
-      const expectedFolder = await database('folders')
+      const expectedFolders = await database('folders')
         .where('user_id', userId)
         .select();
       
-      const folderId = expectedFolder[0].id;
+      const folderId = expectedFolders[0].id;
       
       const expectedPalettes = await database('palettes')
         .where('folder_id', folderId)
@@ -81,5 +81,18 @@ describe('App', () => {
       expect(response.status).toBe(200);
       expect(palettes).toEqual(expectedPalettes)
     })
+  })
+
+  it('should return a 404 status and error if no matching palettes', async () => {
+    const user = await database('users').first();
+    const userId = user.id;
+
+    const invalidFolderId = -10;
+
+    const response = await request(app)
+      .get(`/api/v1/users/${userId}/folders/${invalidFolderId}/palettes`);
+    
+    expect(response.status).toBe(404);
+    expect(response.body.error).toEqual('No matching palettes for that folder id')
   })
 })
