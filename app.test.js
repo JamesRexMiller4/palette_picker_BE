@@ -229,6 +229,12 @@ describe('App', () => {
 
       expect(res.status).toBe(200);
       expect(res.body).toEqual(palette[0]);
-    })
-  })
+    });
+    it('should return a status code 404 and message, when no resource is found', async () => {
+      const res = await request(app).get(`/api/v1/palettes?palette_name="No Palettes Here"`);
+
+      expect(res.status).toBe(404);
+      expect(res.text).toEqual('No results match that query');
+    });
+  });
 });
