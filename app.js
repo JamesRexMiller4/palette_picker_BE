@@ -151,7 +151,25 @@ app.delete('/api/v1/folders/:folderId/palettes/:paletteId', async (req, res) => 
   } catch(error) {
     res.status(500).json({ error });
   }
-})
+});
+
+app.get('/api/v1/palettes?', async (req, res) => {
+  let key = req.url.split('?')[1];
+  let query = key.split('=')[1];
+  key = key.split('=')[0];
+
+  let palette = await database('palettes').select().where(key, query)
+  
+  try {
+    if (!palette.length > 0) {
+      return res.status(404).send('No results match that query')
+    }
+    palette = palette[0]
+    res.status(200).json(palette)
+  } catch(error) {
+    res.status(500).json({ error });
+  }
+});
 
 app.get('/', (req, res) => {
   res.send('Welcome to the Palette Picker API');
