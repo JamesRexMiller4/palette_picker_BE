@@ -119,6 +119,34 @@ describe('App', () => {
     });
   });
 
+  describe('PATCH /api/v1/folders/:folderId/palettes/:paletteId', () => {
+    it('should return a 200 status code, and the modified palette', async () => {
+      const folder = await database('folders').first();
+      const folderId = folder.id;
+
+      const palette = await database('palettes')
+        .where('folder_id', folderId)
+        .select();
+      const paletteId = palette.id;
+      const newPalette = {
+        palette_name: 'colors that depress my parents',
+        color_one: 'red',
+        color_two: 'blue',
+        color_three: 'yellow',
+        color_four: 'green',
+        color_five: 'purple',
+        folder_id: folder.id
+      };
+
+      const res = await request(app)
+        .patch(`/api/v1/folders/${folderId}/palettes/${palettId}`);
+
+      expect(res.status).toBe(200);
+      expect(res.body.palette_name).toEqual(newPalette.palette_name)
+    })
+  })
+});
+
   describe('POST /api/v1/folders', () => {
     it('should respond with 201 after posting a new folder', async () => {
       const newFolder = {folder_name: 'Colors to Save the World'};
