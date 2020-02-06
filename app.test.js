@@ -125,7 +125,7 @@ describe('App', () => {
 
       const res = await request(app).post('/api/v1/folders').send(newFolder);
 
-      const folders = await database('folders').where('id', res.body.id[0]);
+      const folders = await database('folders').where('id', res.body.id);
 
       const folder = folders[0];
 
