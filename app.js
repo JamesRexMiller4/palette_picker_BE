@@ -124,7 +124,7 @@ app.patch('/api/v1/folders/:folderId', async (req, res) => {
 
   try {
     await database('folders').where("id", folderId).update("folder_name", newFolderName.folderName)
-    return res.status(204).send('Folder name successfully updated')
+    return res.status(200).json(newFolderName)
   } catch(error) {
     res.status(500).json({ error })
   }
