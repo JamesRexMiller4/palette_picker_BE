@@ -111,6 +111,23 @@ app.post('/api/v1/folders', async (req, res) => {
   } catch(error) {
     res.status(500).json({ error })
   }
+});
+
+app.patch('/api/v1/folders/:folderId', async (req, res) => {
+  const newFolderName = req.body;
+  const folderId = req.params.folderId;
+
+  if (!newFolderName.folderName) {
+    return res.status(422)
+    .json({ error: 'Expected format: {folderName: <String>}' })
+  }
+
+  try {
+    await database('folders').where("id", folderId).update("folder_name", newFolderName.folderName)
+    return res.status(204).send('Folder name successfully updated')
+  } catch(error) {
+    res.status(500).json({ error })
+  }
 })
 
 app.get('/', (req, res) => {
