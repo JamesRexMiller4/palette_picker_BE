@@ -17,3 +17,8 @@ BackEnd Repo for Palette Picker
 | 'api/v1/folders/:folderId/palettes/:paletteId'| **PUT/PATCH** | **pending** |
 | 'api/v1/folders/:folderId      | **DELETE**      | **A text response** Ex: ```'Folder has been deleted'``` |
 | 'api/v1/folders/:folderId/palettes/:paletteId' | **DELETE** | **A text response** Ex: ```'Palette has been deleted'``` |
+
+# QUERYING DATABASE WITH CUSTOM ENDPOINTS
+| API Paths             | Params       | Response                   |
+| --------------------  |:-------------:| ------------------------------------------------:|
+| '/api/v1/palettes?'| *Can query for palette name from palettes table. Ex:'/api/v1/palettes?palette_name='WubbaLubbaDubDub' | **SUCCESS-an object** Ex: ```{palette_name: 'WubbaLubbaDubDub', colors: ['#FFFFFF', '#FFFFFF', ...], folder_id: "42", id: 4} has been deleted'``` **FAILURE-text response** Ex:'No results match that query'  |
