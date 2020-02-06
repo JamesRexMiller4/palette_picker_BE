@@ -24,7 +24,7 @@ describe('App', () => {
         .select();
 
       const response = await request(app)
-        .get(`/api/v1/folders`);
+        .get('/api/v1/folders');
 
       const folders = response.body;
 
@@ -33,15 +33,15 @@ describe('App', () => {
     });
 
     it('should return a 404 status if it can not find matching folders', async ()=> {
-      const invalidId = -10;
 
       const response = await request(app)
-        .get(`/api/v1/users/${invalidId}/folders`);
+        .get('/api/v1/folders');
 
       expect(response.status).toBe(404);
       expect(response.body.error).toEqual('No folders found.')
     });
   });
+  
   describe('GET "/api/v1/users/:id/folders/:folderId"', () => {
     it('should return a 200 status code and a single folder resource', async () => {
       const expectedFolder = await database('folders').first();
