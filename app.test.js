@@ -160,4 +160,16 @@ describe('App', () => {
       expect(JSON.parse(res.text)).toEqual({ error: `Expected format: { paletteName: <String>, colors: <Array of Strings>}. You're missing a "colors" property.` })
     });
   });
+  describe('PATCH "api/v1/folders/:folderId', () => {
+    it('should return a status code 204 and update the folders name', async () => {
+      const folder = await database('folders').first();
+      const folderId = folder.id;
+
+      const patchFolder = { folderName: 'New Palette Name' };
+
+      const res = await request(app).patch(`/api/v1/folders/${folderId}`).send(patchFolder);
+      console.log(res)
+      expect(res.status).toBe(204);
+    })
+  })
 });
