@@ -63,6 +63,38 @@ app.get('/api/v1/folders/:folderId/palettes/:paletteId', async (req, res) => {
   } catch(error) {
     res.status(500).send({ error });
   }
+});
+
+app.post('/api/v1/folders/:folderId/palettes', async (req, res) => {
+  let palette = req.body;
+  const folderId = req.params.folderId;
+
+  Object.assign(palette, {folder_id: folderId})
+
+  for (let requiredParameter of ['paletteName', 'colors']) {
+    if (!palette[requiredParameter]) {
+      return res
+        .status(422)
+        .send({ error: `Expected format: { paletteName: <String>, colors: <Array of Strings>}. You're missing a "${requiredParameter}" property.` });
+    }
+  }
+
+  try {
+    const id = await database('palettes').insert({
+      palette_name: palette.paletteName,
+      color_one: palette.colors[0],
+      color_two: palette.colors[1],
+      color_three: palette.colors[2],
+      color_four: palette.colors[3],
+      color_five: palette.colors[4],
+      folder_id: palette.folder_id
+    }, 'id');
+    
+    Object.assign(palette, {id: id[0]})
+    res.status(201).json(palette)
+  } catch(error) {
+    res.status(500).json({ error });
+  }
 })
 
 app.post('/api/v1/folders', async (req, res) => {
