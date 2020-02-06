@@ -172,6 +172,17 @@ describe('App', () => {
       
       expect(res.status).toBe(200);
       expect(res.body).toEqual(patchFolder);
+    });
+    it('should return a status code 422 and an error message informing missing parameters', async () => {
+      const folder = await database('folders').first();
+      const folderId = folder.id;
+
+      const patchError = { whoops: 'This wont work' };
+      
+      const res = await request(app).patch(`/api/v1/folders/${folderId}`).send(patchError);
+
+      expect(res.status).toBe(422);
+      expect(JSON.parse(res.text)).toEqual({ error: 'Expected format: {folderName: <String>}' });
     })
   })
 });
