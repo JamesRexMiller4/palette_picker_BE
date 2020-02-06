@@ -133,5 +133,20 @@ describe('App', () => {
       expect(folder.folder_name).toEqual(newFolder.folder_name)
     })
   })
-});
 
+  describe('POST "api/v1/folders/:folderId/palettes"', () => {
+    it('should return a 201 status code and the newly created palette', async () => {
+      const folder = await database('folders').first()
+      const folderId = folder.id
+      const newPalette = { paletteName: 'Test Palette #1', colors: ['#80e56a', '#51c5c5', '#51ed3d', '#7f6851', '#826fb0']};
+
+      const res = await request(app).post(`/api/v1/folders/${folderId}/palettes`).send(newPalette);
+      
+      const palettes = await database('palettes').select().where('id', res.body.id);
+      const palette = palettes[0];
+
+      expect(res.status).toBe(201);
+      expect(palette.palette_name).toEqual(newPalette.paletteName);
+    });
+  })
+});
