@@ -120,7 +120,7 @@ describe('App', () => {
   });
 
   describe('POST /api/v1/folders', () => {
-    it('should responde with 201 after posting a new folder', async () => {
+    it('should respond with 201 after posting a new folder', async () => {
       const newFolder = {folder_name: 'Colors to Save the World'};
 
       const res = await request(app).post('/api/v1/folders').send(newFolder);
@@ -134,7 +134,7 @@ describe('App', () => {
     });
   });
 
-  describe('POST "api/v1/folders/:folderId/palettes"', () => {
+  describe('POST "/api/v1/folders/:folderId/palettes"', () => {
     it('should return a 201 status code and the newly created palette', async () => {
       const folder = await database('folders').first()
       const folderId = folder.id
@@ -160,7 +160,7 @@ describe('App', () => {
       expect(JSON.parse(res.text)).toEqual({ error: `Expected format: { paletteName: <String>, colors: <Array of Strings>}. You're missing a "colors" property.` })
     });
   });
-  describe('PATCH "api/v1/folders/:folderId', () => {
+  describe('PATCH "/api/v1/folders/:folderId', () => {
     it('should return a status code 200 and the updated folders name', async () => {
       const folder = await database('folders').first();
       const folderId = folder.id;
@@ -178,11 +178,22 @@ describe('App', () => {
       const folderId = folder.id;
 
       const patchError = { whoops: 'This wont work' };
-      
+
       const res = await request(app).patch(`/api/v1/folders/${folderId}`).send(patchError);
 
       expect(res.status).toBe(422);
       expect(JSON.parse(res.text)).toEqual({ error: 'Expected format: {folderName: <String>}' });
+    });
+  });
+  describe('DELETE "/api/v1/folders/:folderId', () => {
+    it('should return a status code 204 and message that folder has been deleted', async () => {
+      const folder = await database('folders').first();
+      const folderId = folder.id;
+
+      const res = await request(app).delete(`/api/v1/folders/${folderId}`)
+
+      expect(res.status).toBe(200);
+      expect(res.text).toEqual('Folder has been deleted');
     })
   })
 });
