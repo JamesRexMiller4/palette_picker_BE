@@ -22,7 +22,7 @@ app.get('/api/v1/folders', async (req, res) => {
       res.status(200).json(folders)
     }
   } catch(error) {
-    res.status(500).json({error})
+    res.status(500).json({ error })
   }
   
 })
@@ -51,7 +51,7 @@ app.get('/api/v1/folders/:folderId/palettes', async (req, res) => {
     }
     
   } catch (error) {
-    res.status(500).json({error})
+    res.status(500).json({ error })
   }
 })
 
@@ -62,6 +62,22 @@ app.get('/api/v1/folders/:folderId/palettes/:paletteId', async (req, res) => {
     palette.length > 0 ? res.status(200).json(palette[0]) : res.status(404).json({error: 'Palette not found'});
   } catch(error) {
     res.status(500).send({ error });
+  }
+})
+
+app.post('/api/v1/folders', async (req, res) => {
+  const newFolder = req.body;
+
+  if (!newFolder.folder_name) {
+    return res.status(422)
+    .json({error: 'Expected format: {folder_name: <string>}'})
+  } 
+
+  try {
+    const id = await database('folders').insert(newFolder, 'id')
+    res.status(201).json({ id })
+  } catch(error) {
+    res.status(500).json({ error })
   }
 })
 
