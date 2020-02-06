@@ -41,13 +41,13 @@ describe('App', () => {
       expect(response.body.error).toEqual('No folders found.')
     });
   });
-  
-  describe('GET "/api/v1/users/:id/folders/:folderId"', () => {
+
+  describe('GET "/api/v1/folders/:folderId"', () => {
     it('should return a 200 status code and a single folder resource', async () => {
       const expectedFolder = await database('folders').first();
       const { id } = expectedFolder;
 
-      const res = await request(app).get(`/api/v1/users/1/folders/${id}`);
+      const res = await request(app).get(`/api/v1/folders/${id}`);
       const result = res.body[0];
 
       expect(res.status).toBe(200);
