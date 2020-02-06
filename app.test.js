@@ -56,7 +56,7 @@ describe('App', () => {
     it('should return a 404 status code and error message', async () => {
       const sadID = -42;
 
-      const res = await request(app).get(`/api/v1/users/1/folders/${sadID}`);
+      const res = await request(app).get(`/api/v1/folders/${sadID}`);
 
       expect(res.status).toBe(404);
       expect(res.body.error).toEqual('Folder not found');
