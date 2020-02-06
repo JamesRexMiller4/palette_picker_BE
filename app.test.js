@@ -200,8 +200,9 @@ describe('App', () => {
     it('should return a status code 200 and message that palette has been deleted', async () => {
       const palette = await database('palettes').first();
       const paletteId = palette.id;
+      const folderId = palette.folder_id
 
-      const res = await request(app).delete(`/api/v1/folders/${folderId}`)
+      const res = await request(app).delete(`/api/v1/folders/${folderId}/palettes/${paletteId}`)
 
       expect(res.status).toBe(200);
       expect(res.text).toEqual('Palette has been deleted');
