@@ -139,7 +139,7 @@ describe('App', () => {
       };
 
       const res = await request(app)
-        .patch(`/api/v1/folders/${folderId}/palettes/${palettId}`)
+        .patch(`/api/v1/folders/${folderId}/palettes/${paletteId}`)
         .send(newPalette);
 
       expect(res.status).toBe(200);
@@ -165,7 +165,7 @@ describe('App', () => {
       };
 
       const res = await request(app)
-        .patch(`/api/v1/folders/${folderId}/palettes/${palettId}`)
+        .patch(`/api/v1/folders/${folderId}/palettes/${paletteId}`)
         .send(newPalette);
 
       expect(res.status).toBe(422);
@@ -173,7 +173,25 @@ describe('App', () => {
     })
 
     it('should return a 404 status if no matching palette exists', async () => {
+      await database('palettes').del();
+      await database('folders').del();
 
+      const newPalette = {
+        palette_name: 'colors that depress my parents',
+        color_one: 'red',
+        color_two: 'blue',
+        color_three: 'yellow',
+        color_four: 'green',
+        color_five: 'purple',
+        folder_id: folder.id
+      };
+
+      const res = await request(app)
+        .patch(`/api/v1/folders/1/palettes/1`)
+        .send(newPalette);
+      
+      expect(res.status).toBe(404);
+      expect(res.body.error).toBe(2);
     })
   })
 });
