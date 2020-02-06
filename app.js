@@ -170,6 +170,32 @@ app.get('/api/v1/palettes?', async (req, res) => {
     res.status(500).json({ error });
   }
 });
+app.patch('/api/v1/folders/:folderId/palettes/:paletteId', async (req, res) => {
+  const { folderId, paletteId} = req.params;
+  const palette = req.body;
+  for (let requiredParam of [
+    'palette_name', 
+    'color_one', 
+    'color_two', 
+    'color_three', 
+    'color_four', 
+    'color_five', 
+    'folder_id'
+  ]) {
+    if(!palette[requiredParam]) {
+      return res.status(422).send({error: `expected format: {
+        palette_name: <string>,
+        color_one: <string>,
+        color_two: <string>,
+        color_three: <string>,
+        color_four: <string>,
+        color_five: <string>,
+        folder_id: <integer>
+      }. you're missing a ${requiredParam} property`}) 
+    }
+  }
+
+})
 
 app.get('/', (req, res) => {
   res.send('Welcome to the Palette Picker API');

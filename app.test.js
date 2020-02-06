@@ -147,7 +147,7 @@ describe('App', () => {
     })
 
     it('should return a 422 status if requirements not met', async () => {
-      const folder = await database('folder').first();
+      const folder = await database('folders').first();
       const folderId = folder.id;
       const palette = await database('palettes')
         .where('folder_id', folderId)
@@ -169,7 +169,15 @@ describe('App', () => {
         .send(newPalette);
 
       expect(res.status).toBe(422);
-      expect(res.body.error).toBe(2)
+      expect(res.body.error).toBe(`expected format: {
+        palette_name: <string>,
+        color_one: <string>,
+        color_two: <string>,
+        color_three: <string>,
+        color_four: <string>,
+        color_five: <string>,
+        folder_id: <integer>
+      }. you're missing a folder_id property`)
     })
 
     it('should return a 404 status if no matching palette exists', async () => {
@@ -183,7 +191,7 @@ describe('App', () => {
         color_three: 'yellow',
         color_four: 'green',
         color_five: 'purple',
-        folder_id: folder.id
+        folder_id: 1
       };
 
       const res = await request(app)
@@ -194,7 +202,6 @@ describe('App', () => {
       expect(res.body.error).toBe(2);
     })
   })
-});
 
   describe('POST /api/v1/folders', () => {
     it('should respond with 201 after posting a new folder', async () => {
@@ -315,3 +322,6 @@ describe('App', () => {
     });
   });
 });
+
+  
+
