@@ -194,6 +194,6 @@ describe('App', () => {
 
       expect(res.status).toBe(200);
       expect(res.text).toEqual('Folder has been deleted');
-    })
-  })
+    });
+  });
 });
