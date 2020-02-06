@@ -118,5 +118,20 @@ describe('App', () => {
     expect(response.body.error).toEqual(`No palettes found for folder ${invalidFolderId}`)
     });
   });
+
+  describe('POST /api/v1/folders', () => {
+    it('should responde with 201 after posting a new folder', async () => {
+      const newFolder = {folder_name: 'Colors to Save the World'};
+
+      const res = await request(app).post('/api/v1/folders').send(newFolder);
+
+      const folders = await database('folders').where('id', res.body.id[0]);
+
+      const folder = folders[0];
+
+      expect(res.status).toBe(201);
+      expect(folder.folder_name).toEqual(newFolder.folder_name)
+    })
+  })
 });
 
