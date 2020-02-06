@@ -139,10 +139,41 @@ describe('App', () => {
       };
 
       const res = await request(app)
-        .patch(`/api/v1/folders/${folderId}/palettes/${palettId}`);
+        .patch(`/api/v1/folders/${folderId}/palettes/${palettId}`)
+        .send(newPalette);
 
       expect(res.status).toBe(200);
       expect(res.body.palette_name).toEqual(newPalette.palette_name)
+    })
+
+    it('should return a 422 status if requirements not met', async () => {
+      const folder = await database('folder').first();
+      const folderId = folder.id;
+      const palette = await database('palettes')
+        .where('folder_id', folderId)
+        .select();
+
+      const paletteId = palette.id;
+
+      const newPalette = {
+        palette_name: 'colors that inspire my parents',
+        color_one: 'red',
+        color_two: 'blue',
+        color_three: 'yellow',
+        color_four: 'green',
+        color_five: 'purple',
+      };
+
+      const res = await request(app)
+        .patch(`/api/v1/folders/${folderId}/palettes/${palettId}`)
+        .send(newPalette);
+
+      expect(res.status).toBe(422);
+      expect(res.body.error).toBe(2)
+    })
+
+    it('should return a 404 status if no matching palette exists', async () => {
+
     })
   })
 });
