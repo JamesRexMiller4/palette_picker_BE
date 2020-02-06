@@ -137,10 +137,21 @@ app.delete('/api/v1/folders/:folderId', async (req, res) => {
     await database('palettes').select().where('folder_id', folderId).del();
     await database('folders').select().where('id', folderId).del();
     res.status(200).send('Folder has been deleted');
-  } catch (error) {
+  } catch(error) {
     res.status(500).json({ error });
   }
 });
+
+app.delete('/api/v1/folders/:folderId/palettes/:paletteId', async (req, res) => {
+  const paletteId = req.params.paletteId;
+
+  try {
+    await database('palettes').select().where('id', paletteId).del();
+    res.status(200).send('Palette has been deleted');
+  } catch(error) {
+    res.status(500).json({ error });
+  }
+})
 
 app.get('/', (req, res) => {
   res.send('Welcome to the Palette Picker API');
