@@ -210,11 +210,25 @@ describe('App', () => {
   });
   describe('GET CUSTOM ENDPOINT "/api/v1/palettes?', () => {
     it('request should have a search query embedded in its url', async () => {
-      const palette = await database('palettes').first();
-      const res = await request(app).get(`/api/v1/palettes?palette_name=${palette.palette_name}`)
+      const folder = await database('folders').first();
+      const folderId = folder.id;
+
+      await database('palettes').insert({
+        palette_name: 'Wubbalubbadubdub',
+        color_one: '#FFFFFF',
+        color_two: '#FFFFFF',
+        color_three: '#FFFFFF',
+        color_four: '#FFFFFF',
+        color_five: '#FFFFFF',
+        folder_id: folderId
+      })
+
+      const palette = await database('palettes').where('palette_name', 'Wubbalubbadubdub');
+      
+      const res = await request(app).get(`/api/v1/palettes?palette_name=${palette[0].palette_name}`)
 
       expect(res.status).toBe(200);
-      expect(res).toEqual(palette);
+      expect(res.body).toEqual(palette[0]);
     })
   })
 });
