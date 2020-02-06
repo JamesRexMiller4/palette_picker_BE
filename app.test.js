@@ -131,8 +131,8 @@ describe('App', () => {
 
       expect(res.status).toBe(201);
       expect(folder.folder_name).toEqual(newFolder.folder_name)
-    })
-  })
+    });
+  });
 
   describe('POST "api/v1/folders/:folderId/palettes"', () => {
     it('should return a 201 status code and the newly created palette', async () => {
@@ -158,6 +158,6 @@ describe('App', () => {
 
       expect(res.status).toBe(422);
       expect(JSON.parse(res.text)).toEqual({ error: `Expected format: { paletteName: <String>, colors: <Array of Strings>}. You're missing a "colors" property.` })
-    })
-  })
+    });
+  });
 });
