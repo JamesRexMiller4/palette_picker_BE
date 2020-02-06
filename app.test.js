@@ -33,12 +33,14 @@ describe('App', () => {
     });
 
     it('should return a 404 status if it can not find matching folders', async ()=> {
+      await database('palettes').del();
+      await database('folders').del();
 
       const response = await request(app)
         .get('/api/v1/folders');
 
       expect(response.status).toBe(404);
-      expect(response.body.error).toEqual('No folders found.')
+      expect(response.body.error).toEqual('No folders found')
     });
   });
 
