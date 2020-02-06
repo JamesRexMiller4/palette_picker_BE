@@ -186,7 +186,7 @@ describe('App', () => {
     });
   });
   describe('DELETE "/api/v1/folders/:folderId', () => {
-    it('should return a status code 204 and message that folder has been deleted', async () => {
+    it('should return a status code 200 and message that folder has been deleted', async () => {
       const folder = await database('folders').first();
       const folderId = folder.id;
 
@@ -194,6 +194,17 @@ describe('App', () => {
 
       expect(res.status).toBe(200);
       expect(res.text).toEqual('Folder has been deleted');
+    });
+  });
+  describe('DELETE "/api/v1/folders/:folderId/palettes/:paletteId', () => {
+    it('should return a status code 200 and message that palette has been deleted', async () => {
+      const palette = await database('palettes').first();
+      const paletteId = palette.id;
+
+      const res = await request(app).delete(`/api/v1/folders/${folderId}`)
+
+      expect(res.status).toBe(200);
+      expect(res.text).toEqual('Palette has been deleted');
     });
   });
 });
