@@ -55,7 +55,7 @@ app.get('/api/v1/folders/:folderId/palettes', async (req, res) => {
   }
 })
 
-app.get('/api/v1/users/:id/folders/:folderId/palettes/:paletteId', async (req, res) => {
+app.get('/api/v1/folders/:folderId/palettes/:paletteId', async (req, res) => {
   const { paletteId } = req.params;
   try {
     const palette = await database('palettes').select().where("id", paletteId);
