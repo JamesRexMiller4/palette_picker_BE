@@ -148,5 +148,16 @@ describe('App', () => {
       expect(res.status).toBe(201);
       expect(palette.palette_name).toEqual(newPalette.paletteName);
     });
+
+    it('should return a 422 status code and an error message informing missing parameters', async () => {
+      const folder = await database('folders').first();
+      const folderId = folder.id;
+      const errorPalette = { paletteName: 'There is a snake in my boot' };
+
+      const res = await request(app).post(`/api/v1/folders/${folderId}/palettes`).send(errorPalette);
+
+      expect(res.status).toBe(422);
+      expect(JSON.parse(res.text)).toEqual({ error: `Expected format: { paletteName: <String>, colors: <Array of Strings>}. You're missing a "colors" property.` })
+    })
   })
 });
