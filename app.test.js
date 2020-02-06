@@ -208,4 +208,13 @@ describe('App', () => {
       expect(res.text).toEqual('Palette has been deleted');
     });
   });
+  describe('GET CUSTOM ENDPOINT "/api/v1/palettes?', () => {
+    it('request should have a search query embedded in its url', async () => {
+      const palette = await database('palettes').first();
+      const res = await request(app).get(`/api/v1/palettes?palette_name=${palette.palette_name}`)
+
+      expect(res.status).toBe(200);
+      expect(res).toEqual(palette);
+    })
+  })
 });
