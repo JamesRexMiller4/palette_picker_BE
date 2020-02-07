@@ -121,13 +121,10 @@ describe('App', () => {
 
   describe('PATCH /api/v1/folders/:folderId/palettes/:paletteId', () => {
     it('should return a 200 status code, and the modified palette', async () => {
-      const folder = await database('folders').first();
-      const folderId = folder.id;
-
-      const palette = await database('palettes')
-        .where('folder_id', folderId)
-        .select();
+      const palette = await database('palettes').first();
+      console.log(palette)
       const paletteId = palette.id;
+      const folderId = palette.folder_id;
       const newPalette = {
         palette_name: 'colors that depress my parents',
         color_one: 'red',
@@ -135,11 +132,11 @@ describe('App', () => {
         color_three: 'yellow',
         color_four: 'green',
         color_five: 'purple',
-        folder_id: folder.id
+        folder_id: folderId
       };
 
       const res = await request(app)
-        .patch(`/api/v1/folders/${folderId}/palettes/${paletteId}`)
+        .patch(`/api/v1/folders/1/palettes/${paletteId}`)
         .send(newPalette);
 
       expect(res.status).toBe(200);
