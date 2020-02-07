@@ -122,7 +122,6 @@ describe('App', () => {
   describe('PATCH /api/v1/folders/:folderId/palettes/:paletteId', () => {
     it('should return a 200 status code, and the modified palette', async () => {
       const palette = await database('palettes').first();
-      console.log(palette)
       const paletteId = palette.id;
       const folderId = palette.folder_id;
       const newPalette = {
@@ -180,7 +179,7 @@ describe('App', () => {
     it('should return a 404 status if no matching palette exists', async () => {
       await database('palettes').del();
       await database('folders').del();
-
+      const invalidId = -10
       const newPalette = {
         palette_name: 'colors that depress my parents',
         color_one: 'red',
@@ -192,11 +191,11 @@ describe('App', () => {
       };
 
       const res = await request(app)
-        .patch(`/api/v1/folders/1/palettes/1`)
+        .patch(`/api/v1/folders/1/palettes/${invalidId}`)
         .send(newPalette);
       
       expect(res.status).toBe(404);
-      expect(res.body.error).toBe(2);
+      expect(res.body.error).toBe(`No palette found with id ${invalidId}`);
     })
   })
 
