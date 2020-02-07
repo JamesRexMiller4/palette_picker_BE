@@ -196,6 +196,12 @@ app.patch('/api/v1/folders/:folderId/palettes/:paletteId', async (req, res) => {
   }
 
   try {
+    const matchingPalette = await database('palettes')
+      .where('id', paletteId)
+
+    if (!matchingPalette.length) {
+      return res.status(404).json({error: `No palette found with id ${paletteId}`})
+    } else {
     await database('palettes')
       .where('id', paletteId)
       .update({...palette});
@@ -205,6 +211,7 @@ app.patch('/api/v1/folders/:folderId/palettes/:paletteId', async (req, res) => {
       .select();
 
     res.status(200).json(updatedPalette[0])
+  }
   } catch(error) {
     res.status(500).json({ error });
   }
