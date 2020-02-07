@@ -171,7 +171,7 @@ app.get('/api/v1/palettes?', async (req, res) => {
   }
 });
 app.patch('/api/v1/folders/:folderId/palettes/:paletteId', async (req, res) => {
-  const { folderId, paletteId} = req.params;
+  const { paletteId } = req.params;
   const palette = req.body;
   for (let requiredParam of [
     'palette_name', 
@@ -195,6 +195,19 @@ app.patch('/api/v1/folders/:folderId/palettes/:paletteId', async (req, res) => {
     }
   }
 
+  try {
+    await database('palettes')
+      .where('id', paletteId)
+      .update({...palette});
+    
+    const updatedPalette = await database('palettes')
+      .where('id', paletteId)
+      .select();
+
+    res.status(200).json(updatedPalette[0])
+  } catch(error) {
+    res.status(500).json({ error });
+  }
 })
 
 app.get('/', (req, res) => {
