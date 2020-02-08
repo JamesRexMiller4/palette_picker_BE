@@ -2,8 +2,8 @@ language: node_js
 node_js:
 - 13.5.0
 services:
-  - postgresql
+- postgresql
 before_script:
-  - psql -c 'CREATE DATABASE palette_picker_test;' -U postgres
+- psql -c 'CREATE DATABASE palette_picker_test;' -U postgres
   notifications:
   email: false
