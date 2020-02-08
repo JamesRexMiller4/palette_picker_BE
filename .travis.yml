@@ -5,8 +5,6 @@ services:
 - postgresql
 before_install:
 - psql -c 'CREATE DATABASE palette_picker_test;' -U postgres
-before_script:
-- psql -c 'CREATE DATABASE palette_picker_test;' -U postgres
 notifications:
   email: false
 deploy:
