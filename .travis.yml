@@ -3,12 +3,13 @@ node_js:
 - 13.5.0
 services:
 - postgresql
-before_install:
+before_script:
 - psql -c 'CREATE DATABASE palette_picker_test;' -U postgres
 - knex migrate:latest --env=test
 notifications:
   email: false
 deploy:
+  provider: heroku
   api_key:
     secure: cxbc5GLhhBe0slYA+dvBXU/m5ytCyTGUGYQdt4yNIlme1aBMuO9nbBZnFbsChxUMSxdqgWQ3YXZ8vjjfAgUGKOVFQGiF6IcfVeh3wSQPbChxawNIfN/YXCxoGU08iBZp9UxS2pLCIDNRofrj32BJUrRcpuRxvt3EDGjDNwyhpWEtS60+KyYG8p4mPbyFMHxIyWyJ+fqsgXZ0s1yTVWoFtRFIEktcaj3oAkbIsbpQ/DPnu+8g6fryggLM6Jv5Jwy3bzjKeS/3kP4UBKp0Wh7mpEBp4wl1lSKszCnqoI2BRE1rfnFA3eSr6Yv5DHGLuCrGx2jgtXPfDnZuGumYgE8O6rhMcq3MdyHfOPH8Lasq/TpMs7A08eFb5LpkR25SECtYt/zNDGMAHdFnXEt6RrgLJFFDu4WCOOZPFhf+1rl5CCJi1gH530g3SD4KsAfoEyBA+655DoXncZuHH/MXP12s8sA+tx+L3pnlGE30oHHHUgGTuptZLUwm8jz+ChTZxt85T0CVmN58PkzuWw16+V1jLKoSZMF2u/C4wkYQoTE+K9PANB7mDCtiMKs1aeZMq/sJbLfwQNu3GaSLayo+QvYCVQDRmQUXq63gR92LgRlv1CrPzzDDBVxxyAZ+04Et3cxQYiwL56a5medZWn0fq2sVQprF0FTxtZi0XVz2pcEeNYA=
   app: arcane-coast-01290
