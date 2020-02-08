@@ -5,6 +5,8 @@ services:
 - postgresql
 before_install:
 - psql -c 'CREATE DATABASE palette_picker_test;' -U postgres
+- knex migrate:latest
+- knex seed:run
 notifications:
   email: false
 deploy:
