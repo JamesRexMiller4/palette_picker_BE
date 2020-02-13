@@ -1,6 +1,33 @@
 # palette_picker_BE
 BackEnd Repo for Palette Picker
 
+# SET UP 
+
+1. Clone down the repo and run npm install 
+2. If you do not already have postgres installed on your local machine, you will need to download that to your local machine.
+3. Once Postgres has been installed you should also download Postico, a tool that makes it easier to view and manage the databases you have running on your machine locally.
+4. In order to get the database set up properly and seeded with the test data, you will need to run the following commands: 
+```pg
+   CREATE DATABASE <nameofDB> ;
+   \q
+```
+
+NOTE: you will want to review the knexfile.js and see how the pathing is setup and change the name of the database to the name of your newly created DB 
+
+5. You may also want to create the test database at this time as well, run the same command as above and denote the name of the database as test 
+6. From your repo folder in your terminal run the following commands: 
+```
+  knex migrate:latest
+  knex seed:run 
+```
+7. If you have your test database set up, you will want to run the same commands but append to the end of each 
+```
+--env=test
+```
+NOTE: Just like with the development environment, you will want to review the knexfile and make sure that the pathing to your database is correctly named after your test database. 
+
+8. You can confirm that your tables have been created and seeded by opening Postico and opening up the database created on your local machine
+
 
 # API ENDPOINTS - DOCUMENTATION
 
