@@ -29,6 +29,10 @@ NOTE: Just like with the development environment, you will want to review the kn
 
 8. You can confirm that your tables have been created and seeded by opening Postico and opening up the database created on your local machine
 
+## Front End
+This API was built in conjunction with our Front End application, PalettePicker.
+* [PalettePicker - Deployed App](https://dashboard.heroku.com/apps/palettepicker2020)
+* [PalettePicker FE repository](https://github.com/sertmer/Palette-Picker-FE)
 
 # API ENDPOINTS - DOCUMENTATION
 
