@@ -7,7 +7,8 @@ BackEnd Repo for Palette Picker
 2. If you do not already have postgres installed on your local machine, you will need to download that to your local machine.
 3. Once Postgres has been installed you should also download Postico, a tool that makes it easier to view and manage the databases you have running on your machine locally.
 4. In order to get the database set up properly and seeded with the test data, you will need to run the following commands: 
-```pg
+```
+   pg
    CREATE DATABASE <nameofDB> ;
    \q
 ```
